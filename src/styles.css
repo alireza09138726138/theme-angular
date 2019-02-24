@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+body{
+  background-color: aqua;
+}
+
+.bf{
+  background-color: #ffffff;
+  padding: 10px 10px;
+}
+
+.ul{
+  padding: 0.5rem 1rem;
+}
+.mrr{
+  float: right;
+
+}
+.width{
+  width: 100%;
+}
