@@ -6,6 +6,9 @@
            [(ngModel)]="taskToAdd" name="taskToAdd" autocomplete="off">
   </form>
 
+  <!-- If no tasks -->
+  <p *ngIf="!tasks.length" class="mt-3">You don't have any tasks.</p>
+
   <!-- Task list -->
   <div class="list-group mt-3">
     <div class="list-group-item task" *ngFor="let task of tasks" [ngClass]="{done: task.done}">
