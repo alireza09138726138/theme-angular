@@ -1,23 +1,22 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 body {
-  background-color: aqua;
+  background: #ecf0f1;
 }
 
-.bf {
-  background-color: #ffffff;
-  padding: 10px 10px;
+.container {
+  max-width: 30rem;
 }
 
-.ul {
-  padding: 0.5rem 1rem;
+.task button {
+  opacity: 0;
 }
 
-.mrr {
-  float: right;
-
+.task:hover button {
+  opacity: 1;
 }
 
-.width {
-  width: 100%;
+.task.done {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.25);
 }

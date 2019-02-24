@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {User} from './user';
+import { Component } from '@angular/core';
+import { Task } from './models/task/task';
 
 @Component({
   selector: 'app-root',
@@ -7,42 +7,62 @@ import {User} from './user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: string;
-  username: string;
-  daily: string;
-  // user: User;
-  users: Array<User>;
+
+  /**
+   * List of tasks
+   */
+  tasks: Array<Task> = [];
+
+  /**
+   * Task to add from input
+   */
+  taskToAdd: string;
 
   constructor() {
-    this.title = 'newAngularApp';
-    // this.user = new User('Alireza', 'AlirezaMos', 1);
-    this.users = [];
+    this.loadTasks();
+  }
 
-    if (localStorage.getItem('userList') !== null) {
-      const items = JSON.parse(localStorage.getItem('userList'));
-
-      for (const item of items) {
-        this.users.push(new User(item.name, item.id, item.daily, item.delete));
+  /**
+   * Load tasks from localStorage.
+   */
+  loadTasks() {
+    if (localStorage.getItem('tasks')) {
+      for (const item of JSON.parse(localStorage.getItem('tasks'))) {
+        this.tasks.push(new Task(item.name, item.done));
       }
-
-      console.log(this.users)
     }
-
   }
 
-  saveUsers() {
-    localStorage.setItem('userList', JSON.stringify(this.users));
+  /**
+   * Save tasks to localStorage
+   */
+  saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
-  addUser() {
-    this.users.push(new User(this.username, this.users.length + 1, this.daily, false));
-    this.saveUsers();
-    console.log(this.users);
+  /**
+   * Add a task to task list and save to localStorage
+   */
+  addTask() {
+    this.tasks.unshift(new Task(this.taskToAdd));
+    this.saveTasks();
+    this.taskToAdd = '';
   }
 
-  delete(user) {
-    user.delete = true;
-    this.saveUsers();
+  /**
+   * Delete a task and save to localStorage
+   */
+  deleteTask(task: Task) {
+    // Show are-you-sure message
+    if (!confirm('Are you sure you want to delete?')) {
+      return;
+    }
+    // Find index of task
+    const index: number = this.tasks.indexOf(task);
+    // Delete task at index
+    this.tasks.splice(index, 1);
+    // Save to localStorage
+    this.saveTasks();
   }
 }
 

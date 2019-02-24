@@ -1,44 +1,22 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="bs-datepicker-container">
+<div class="container py-5">
 
+  <!-- Add task -->
+  <form (submit)="addTask()">
+    <input type="text" class="form-control" placeholder="Add a task"
+           [(ngModel)]="taskToAdd" name="taskToAdd" autocomplete="off">
+  </form>
 
-  <h2>Here are some links to help you start: </h2>
-
-  <div class="container bf">
-
-
-    <form>
-      <div class="form-row">
-        <div class="col">
-          <input type="text" class="form-control" name="username" placeholder="First name" [(ngModel)]="username">
-          {{ username }}
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" name="daily" placeholder="Last name" [(ngModel)]="daily">
-          {{ daily }}
-        </div>
-        <button (click)="addUser()">add a new user</button>
+  <!-- Task list -->
+  <div class="list-group mt-3">
+    <div class="list-group-item task" *ngFor="let task of tasks" [ngClass]="{done: task.done}">
+      <!-- Task done -->
+      <div class="form-group form-check d-inline">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveTasks()">
       </div>
-    </form>
-
+      <!-- Task name -->
+      <span>{{ task.name }}</span>
+      <!-- Delete -->
+      <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(task)">&times;</button>
+    </div>
   </div>
-  <div class="container" >
-  <ul class="" *ngIf="users.length">
-    <li class="list-group-item " *ngFor="let user of users" [hidden]="user.delete === true">
-
-
-      <a href="#" class="mr-auto">
-        {{ user.name }} {{ user.daily }} ,{{ user.id }} </a>
-        <button (click)="delete(user)" class="mrr">delete</button>
-
-
-
-    </li>
-
-  </ul>
-
-
-  </div>
-
-
 </div>
