@@ -13,7 +13,7 @@
 
   <!-- Task list -->
   <div class="list-group mt-3">
-    <div class="list-group-item task" *ngFor="let task of tasks" [ngClass]="{done: task.done}">
+    <div class="list-group-item task" *ngFor="let task of tasks" [class.bg-light]="task.pin" [ngClass]="{done: task.done}">
       <!-- Task done -->
       <div class="form-group form-check d-inline">
         <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveTasks()">
@@ -21,7 +21,7 @@
       <!-- Task name -->
       <span>{{ task.name }} &middot; {{ task.date | date:'MMM d, y' }}</span>
       <!-- pin -->
-      <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">&times;</button>
+      <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">pin</button>
       <!-- Delete -->
       <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(task)">&times;</button>
     </div>

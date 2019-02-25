@@ -70,6 +70,10 @@ export class AppComponent {
     // Save to localStorage
     this.saveTasks();
   }
+  pinTask(task: Task){
+    task.pin = !task.pin;
+    this.saveTasks();
+  }
 
 }
 
