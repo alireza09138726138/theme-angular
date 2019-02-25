@@ -18,6 +18,8 @@ export class AppComponent {
    */
   taskToAdd: string;
 
+  pickedDate: string;
+
   constructor() {
     this.loadTasks();
   }
@@ -26,9 +28,13 @@ export class AppComponent {
    * Load tasks from localStorage.
    */
   loadTasks() {
+    // Check localStorage for tasks
     if (localStorage.getItem('tasks')) {
+      // Tasks are saved in localStorage, loop and add to tasks
       for (const item of JSON.parse(localStorage.getItem('tasks'))) {
-        this.tasks.push(new Task(item.name, item.done));
+        // Add each task object as Task class
+        this.tasks.push(new Task(item.name, item.done, new Date(item.date)));
+
       }
     }
   }
@@ -44,7 +50,7 @@ export class AppComponent {
    * Add a task to task list and save to localStorage
    */
   addTask() {
-    this.tasks.unshift(new Task(this.taskToAdd));
+    this.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.pickedDate)));
     this.saveTasks();
     this.taskToAdd = '';
   }
