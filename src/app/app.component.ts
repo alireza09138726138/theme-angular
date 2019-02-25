@@ -33,7 +33,7 @@ export class AppComponent {
       // Tasks are saved in localStorage, loop and add to tasks
       for (const item of JSON.parse(localStorage.getItem('tasks'))) {
         // Add each task object as Task class
-        this.tasks.push(new Task(item.name, item.done, new Date(item.date)));
+        this.tasks.push(new Task(item.name, item.done, new Date(item.date), item.pin));
 
       }
     }
@@ -50,7 +50,7 @@ export class AppComponent {
    * Add a task to task list and save to localStorage
    */
   addTask() {
-    this.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.pickedDate)));
+    this.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.pickedDate), false));
     this.saveTasks();
     this.taskToAdd = '';
   }
@@ -70,5 +70,6 @@ export class AppComponent {
     // Save to localStorage
     this.saveTasks();
   }
+
 }
 

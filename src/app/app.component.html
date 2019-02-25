@@ -20,6 +20,8 @@
       </div>
       <!-- Task name -->
       <span>{{ task.name }} &middot; {{ task.date | date:'MMM d, y' }}</span>
+      <!-- pin -->
+      <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">&times;</button>
       <!-- Delete -->
       <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(task)">&times;</button>
     </div>
