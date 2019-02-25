@@ -1,5 +1,45 @@
 <div class="container py-5">
 
+
+  <!-- Add group.task -->
+  <form (submit)="addGroup()">
+    <input type="text" class="form-control" placeholder="Add a tas"
+           [(ngModel)]="GroupToAdd" name="GroupToAdd" autocomplete="off">
+  </form>
+
+
+<br>
+
+  <!-- Groups -->
+  <div class="card mb-3 " *ngFor="let group of groups">
+    <input type="text">
+
+    <div class="card-body">
+      <!-- Task list -->
+      <div class="list-group">
+        <!-- Group name -->
+        <div class="card-header">{{ group.name }}</div>
+        <div class="list-group-item task" *ngFor="let task of group.tasks"
+             [ngClass]="{done: task.done, 'bg-light': task.pin}">
+          <!-- Task done -->
+          <div class="form-group form-check d-inline">
+            <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveTasks()">
+          </div>
+          <!-- Task name -->
+          <span>{{ task.name }}</span>
+          <!-- Task date -->
+          <span *ngIf="task.date">&bull; {{ task.date | date:'MMM d, y' }}</span>
+          <!-- pin -->
+          <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">pin</button>
+          <!-- Delete -->
+          <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(task)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
   <!-- Add task -->
   <form (submit)="addTask()">
     <input type="text" class="form-control" placeholder="Add a task"
@@ -13,7 +53,8 @@
 
   <!-- Task list -->
   <div class="list-group mt-3">
-    <div class="list-group-item task" *ngFor="let task of tasks" [class.bg-light]="task.pin" [ngClass]="{done: task.done}">
+    <div class="list-group-item task" *ngFor="let task of tasks" [class.bg-light]="task.pin"
+         [ngClass]="{done: task.done}">
       <!-- Task done -->
       <div class="form-group form-check d-inline">
         <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveTasks()">
@@ -26,4 +67,19 @@
       <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(task)">&times;</button>
     </div>
   </div>
+
+
+</div>
+
+<!-- Group list -->
+<div class="container">
+<div class="list-group mt-3">
+  <input type="text">
+  <div class="list-group-item task" *ngFor="let group of groups" >
+
+    <!-- Task name -->
+    <span>{{ group.name }}</span>
+   
+  </div>
+</div>
 </div>
