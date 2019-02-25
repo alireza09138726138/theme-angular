@@ -3,9 +3,9 @@ export class Task {
   done: boolean;
   date: Date;
 
-  constructor(name: string, done?: boolean, date?: Date) {
+  constructor(name: string, done: boolean = false, date: Date = null) {
     this.name = name;
-    this.done = done ? done : false;
-    this.date = date ? date : new Date();
+    this.done = done;
+    this.date = date;
   }
 }

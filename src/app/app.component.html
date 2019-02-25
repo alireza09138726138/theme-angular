@@ -4,6 +4,8 @@
   <form (submit)="addTask()">
     <input type="text" class="form-control" placeholder="Add a task"
            [(ngModel)]="taskToAdd" name="taskToAdd" autocomplete="off">
+
+    <input type="date" class="form-control" [(ngModel)]="pickedDate" name="date">
   </form>
 
   <!-- If no tasks -->

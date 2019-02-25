@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Task } from './models/task/task';
+import {Component} from '@angular/core';
+import {Task} from './models/task/task';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,8 @@ export class AppComponent {
    * Task to add from input
    */
   taskToAdd: string;
+
+  pickedDate: string;
 
   constructor() {
     this.loadTasks();
@@ -48,7 +50,7 @@ export class AppComponent {
    * Add a task to task list and save to localStorage
    */
   addTask() {
-    this.tasks.unshift(new Task(this.taskToAdd));
+    this.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.pickedDate)));
     this.saveTasks();
     this.taskToAdd = '';
   }
