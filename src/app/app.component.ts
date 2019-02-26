@@ -27,31 +27,15 @@ export class AppComponent {
   /**
    * Group to add from input
    */
-  GroupToAdd: string;
+  groupToAdd: string;
 
   /**
    * Date to add from input
    */
-  pickedDate: string;
+  taskDateToAdd: Date;
 
   constructor() {
-    this.loadTasks();
     this.loadGroups();
-  }
-
-  /**
-   * Load tasks from localStorage.
-   */
-  loadTasks() {
-    // Check localStorage for tasks
-    if (localStorage.getItem('tasks')) {
-      // Tasks are saved in localStorage, loop and add to tasks
-      for (const item of JSON.parse(localStorage.getItem('tasks'))) {
-        // Add each task object as Task class
-        this.tasks.push(new Task(item.name, item.done, new Date(item.date), item.pin));
-
-      }
-    }
   }
 
   /**
@@ -63,7 +47,7 @@ export class AppComponent {
       // Tasks are saved in localStorage, loop and add to tasks
       for (const item of JSON.parse(localStorage.getItem('groups'))) {
         // Setup group to add to groups later
-        let group: Group = new Group(item.name, item.tasks);
+        const group: Group = new Group(item.name, item.tasks);
         // Add all task objects to Task class
         for (const task of item.tasks) {
           group.tasks.push(new Task(task.name, task.done, task.date, task.pin));
@@ -72,13 +56,6 @@ export class AppComponent {
         this.groups.push(group);
       }
     }
-  }
-
-  /**
-   * Save tasks to localStorage
-   */
-  saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   /**
@@ -91,41 +68,41 @@ export class AppComponent {
   /**
    * Add a task to task list and save to localStorage
    */
-  addTask() {
-    this.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.pickedDate), false));
-    this.saveTasks();
+  addTask(group: Group) {
+    group.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.taskDateToAdd), false));
+    this.saveGroup();
     this.taskToAdd = '';
   }
 
   /**
-   * Add a group to task list and save to localStorage
+   * Add a group to group list and save to localStorage
    */
   addGroup() {
-    this.groups.unshift(new Group(this.GroupToAdd, []));
+    this.groups.unshift(new Group(this.groupToAdd, []));
     this.saveGroup();
-    this.GroupToAdd = '';
+    this.groupToAdd = '';
   }
 
   /**
    * Delete a task and save to localStorage
+   * @todo Delete a task from group
    */
-  deleteTask(task: Task) {
+  deleteTask(group: Group, task: Task) {
     // Show are-you-sure message
     if (!confirm('Are you sure you want to delete?')) {
       return;
     }
     // Find index of task
-    const index: number = this.tasks.indexOf(task);
+    const index: number = group.tasks.indexOf(task);
     // Delete task at index
-    this.tasks.splice(index, 1);
+    group.tasks.splice(index, 1);
     // Save to localStorage
-    this.saveTasks();
+    this.saveGroup();
   }
 
   pinTask(task: Task) {
     task.pin = !task.pin;
-    this.saveTasks();
+    this.saveGroup();
   }
-
 }
 
