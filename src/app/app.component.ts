@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Task} from './models/task/task';
-import {Group} from './models/group/group';
+import { Component } from '@angular/core';
+import { Task } from './models/task/task';
+import { Group } from './models/group/group';
 
 @Component({
   selector: 'app-root',
@@ -17,18 +17,7 @@ export class AppComponent {
   /**
    * List of groups
    */
-  groups: Array<Group> = [
-    new Group('Hello', [
-      new Task('Buy milk', false, null, false),
-      new Task('Buy coke', false, null, false),
-      new Task('Buy shisha', false, null, false),
-    ]),
-    new Group('Hello', [
-      new Task('Drink milk', false, null, false),
-      new Task('Drink coke', false, null, false),
-      new Task('Smoke shisha', false, null, false),
-    ]),
-  ];
+  groups: Array<Group> = [];
 
   /**
    * Task to add from input
@@ -45,15 +34,10 @@ export class AppComponent {
    */
   pickedDate: string;
 
-  /**
-   * load tasks
-   */
-
   constructor() {
     this.loadTasks();
-    this.loadgroups();
+    this.loadGroups();
   }
-
 
   /**
    * Load tasks from localStorage.
@@ -70,18 +54,22 @@ export class AppComponent {
     }
   }
 
-
   /**
    * Load groups from localStorage.
    */
-  loadgroups() {
+  loadGroups() {
     // Check localStorage for tasks
-    if (localStorage.getItem('groups ')) {
+    if (localStorage.getItem('groups')) {
       // Tasks are saved in localStorage, loop and add to tasks
-      for (const item of JSON.parse(localStorage.getItem('groups '))) {
-        // Add each task object as Task class
-        this.groups.push(new Group(item.name));
-
+      for (const item of JSON.parse(localStorage.getItem('groups'))) {
+        // Setup group to add to groups later
+        let group: Group = new Group(item.name, item.tasks);
+        // Add all task objects to Task class
+        for (const task of item.tasks) {
+          group.tasks.push(new Task(task.name, task.done, task.date, task.pin));
+        }
+        // Add group to groups
+        this.groups.push(group);
       }
     }
   }
