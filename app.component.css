@@ -1,0 +1,13 @@
+
+.task button {
+  opacity: 0;
+}
+
+.task:hover button {
+  opacity: 1;
+}
+
+.task.done {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.25);
+}
