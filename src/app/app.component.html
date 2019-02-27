@@ -13,9 +13,11 @@
     <!-- Group body -->
     <div class="card-body">
       <!-- Group add input -->
-      <form (ngSubmit)="addTask(group)">
-        <input type="text" placeholder="Add task" class="form-control" [(ngModel)]="taskToAdd" name="taskToAdd">
-        <input type="date" class="form-control" [(ngModel)]="taskDateToAdd" name="taskDateToAdd">
+      <form class="mb-3" (ngSubmit)="addTask(group)">
+        <div class="input-group ">
+          <input type="text" placeholder="Add task" class="form-control" [(ngModel)]="taskToAdd" name="taskToAdd">
+          <input type="date" class="form-control" [(ngModel)]="taskDateToAdd" name="taskDateToAdd">
+        </div>
       </form>
       <!-- Group task list -->
       <div class="list-group-item task" *ngFor="let task of group.tasks"
