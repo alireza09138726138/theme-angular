@@ -1,7 +1,23 @@
 <div class="container py-5">
 
   <!-- Add group.task -->
-  <form (submit)="addGroup()">
+  <form (ngSubmit)="addNote()">
+    <input type="text" placeholder="Add a note" class="form-control"
+           [(ngModel)]="noteToAdd" name="noteToAdd" autocomplete="off">
+  </form>
+
+  <div class="card my-2" *ngFor="let note of notes">
+    <div class="card-body"  *ngIf="!note.length">
+      {{ note.content }}
+      <button class="btn btn-sm btn-light float-right py-0" (click)="deleteNote()">&times;</button>
+    </div>
+  </div>
+
+
+  <hr>
+
+  <!-- Add group -->
+  <form (ngSubmit)="addGroup()">
     <input type="text" class="form-control" placeholder="Add a group"
            [(ngModel)]="groupToAdd" name="groupToAdd" autocomplete="off">
   </form>

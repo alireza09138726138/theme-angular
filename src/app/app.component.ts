@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from './models/task/task';
 import { Group } from './models/group/group';
+import { Note } from './models/note/note';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,11 @@ export class AppComponent {
   groups: Array<Group> = [];
 
   /**
+   * List of notes
+   */
+  notes: Array<Note> = [];
+
+  /**
    * Task to add from input
    */
   taskToAdd: string;
@@ -30,12 +36,18 @@ export class AppComponent {
   groupToAdd: string;
 
   /**
+   * Group to add from input
+   */
+  noteToAdd: string;
+
+  /**
    * Date to add from input
    */
   taskDateToAdd: Date;
 
   constructor() {
     this.loadGroups();
+    this.loadNotes();
   }
 
   /**
@@ -59,10 +71,31 @@ export class AppComponent {
   }
 
   /**
+   * Load notes from localStorage.
+   */
+  loadNotes() {
+    // Check localStorage for notes
+    if (localStorage.getItem('notes')) {
+      for (const item of JSON.parse(localStorage.getItem('notes'))) {
+        const note: Note = new Note(item.content);
+        this.notes.push(note);
+      }
+    }
+
+  }
+
+  /**
    * Save groups to localStorage
    */
   saveGroup() {
     localStorage.setItem('groups', JSON.stringify(this.groups));
+  }
+
+  /**
+   * Save notes to localStorage
+   */
+  saveNotes() {
+    localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 
   /**
@@ -84,10 +117,19 @@ export class AppComponent {
   }
 
   /**
+   * Add a note to note list and save to localStorage
+   */
+  addNote() {
+    this.notes.unshift(new Note(this.noteToAdd));
+    this.saveNotes();
+    this.noteToAdd = '';
+  }
+
+  /**
    * Delete a task and save to localStorage
    * @todo Delete a task from group
    */
-  deleteTask(group: Group, task: Task) {
+  deleteTask(group: Group, task: Task): void {
     // Show are-you-sure message
     if (!confirm('Are you sure you want to delete?')) {
       return;
@@ -100,9 +142,28 @@ export class AppComponent {
     this.saveGroup();
   }
 
-  pinTask(task: Task) {
+
+  /**
+   * Delete a note and save to localStorage
+   *
+   */
+  deleteNote(note: Note): void {
+    // Show are-you-sure message
+    if (!confirm('Are you sure you want to delete?')) {
+      return;
+    }
+    // Find index of note
+    const index: number = this.notes.indexOf(note);
+    // Delete task at index
+    this.notes.splice(index, 1);
+    // Save to localStorage
+    this.saveNotes();
+  }
+
+  pinTask(task: Task): void {
     task.pin = !task.pin;
     this.saveGroup();
   }
 }
+
 
