@@ -47,7 +47,7 @@ export class AppComponent {
       // Tasks are saved in localStorage, loop and add to tasks
       for (const item of JSON.parse(localStorage.getItem('groups'))) {
         // Setup group to add to groups later
-        const group: Group = new Group(item.name, item.tasks);
+        const group: Group = new Group(item.name);
         // Add all task objects to Task class
         for (const task of item.tasks) {
           group.tasks.push(new Task(task.name, task.done, task.date, task.pin));
