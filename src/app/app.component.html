@@ -7,7 +7,7 @@
   </form>
 
   <div class="card my-2" *ngFor="let note of notes">
-    <div class="card-body"  *ngIf="!note.length">
+    <div class="card-body" *ngIf="!note.length">
       {{ note.content }}
       <button class="btn btn-sm btn-light float-right py-0" (click)="deleteNote()">&times;</button>
     </div>
@@ -25,7 +25,15 @@
   <!-- Groups -->
   <div class="card my-3 " *ngFor="let group of groups">
     <!-- Group name @todo Add delete button at the right side of head -->
-    <div class="card-header">{{ group.name }}</div>
+    <div class="card-header d-flex">{{ group.name }}
+      <!-- archive -->
+
+      <button class="btn btn-sm btn-light ml-auto py-0" [disabled]="!group.archivedTasks.length"
+              (click)="group.toggleArchived()">
+        Show archived
+      </button>
+
+    </div>
     <!-- Group body -->
     <div class="card-body">
       <!-- Group add input -->
@@ -36,8 +44,9 @@
         </div>
       </form>
       <!-- Group task list -->
-      <div class="list-group-item task" *ngFor="let task of group.tasks"
-           [ngClass]="{done: task.done, 'bg-light': task.pin}">
+      <div class="list-group-item task"
+           *ngFor="let task of ( group.showArchived ? group.archivedTasks : group.tasks); let index = index"
+           [ngClass]="{'done': task.done, 'bg-light': task.pin }">
         <!-- Task done -->
         <div class="form-group form-check d-inline">
           <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveTasks()">
@@ -50,6 +59,8 @@
         <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">P</button>
         <!-- Delete -->
         <button class="btn btn-sm btn-light float-right py-0" (click)="deleteTask(group, task)">&times;</button>
+        <!-- archive -->
+        <button class="btn btn-sm btn-light float-right py-0" (click)="archive(group, task, index)">archive</button>
       </div>
       <!-- @todo Add no tasks text -->
       <p *ngIf="!groups.length" class="mt-3">You don't have any groups.</p>

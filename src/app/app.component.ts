@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Task } from './models/task/task';
 import { Group } from './models/group/group';
 import { Note } from './models/note/note';
+import { el } from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ export class AppComponent {
   taskDateToAdd: Date;
 
   constructor() {
+
     this.loadGroups();
     this.loadNotes();
   }
@@ -62,12 +64,17 @@ export class AppComponent {
         const group: Group = new Group(item.name);
         // Add all task objects to Task class
         for (const task of item.tasks) {
-          group.tasks.push(new Task(task.name, task.done, task.date, task.pin));
+          group.tasks.push(new Task(task.name, task.done, task.date, task.pin, task.archive));
+        }
+        for (const task of item.archivedTasks) {
+          group.archivedTasks.push(new Task(task.name, task.done, task.date, task.pin, task.archive));
         }
         // Add group to groups
         this.groups.push(group);
       }
     }
+
+    console.log(this.groups);
   }
 
   /**
@@ -102,7 +109,7 @@ export class AppComponent {
    * Add a task to task list and save to localStorage
    */
   addTask(group: Group) {
-    group.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.taskDateToAdd), false));
+    group.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.taskDateToAdd), false, false));
     this.saveGroup();
     this.taskToAdd = '';
   }
@@ -111,7 +118,7 @@ export class AppComponent {
    * Add a group to group list and save to localStorage
    */
   addGroup() {
-    this.groups.unshift(new Group(this.groupToAdd, []));
+    this.groups.unshift(new Group(this.groupToAdd, [], []));
     this.saveGroup();
     this.groupToAdd = '';
   }
@@ -162,6 +169,32 @@ export class AppComponent {
 
   pinTask(task: Task): void {
     task.pin = !task.pin;
+    this.saveGroup();
+  }
+
+  /**
+   * archive
+   *
+   */
+  archive(group: Group, task: Task, index: number): void {
+    task.archive = !task.archive;
+
+    if (task.archive === true) {
+      group.archivedTasks.push(task);
+      group.tasks.splice(index, 1);
+    } else {
+      group.tasks.push(task);
+      group.archivedTasks.splice(index, 1);
+    }
+    this.saveGroup();
+  }
+
+  /**
+   * showArchived
+   *
+   */
+  showArchived(task: Task): void {
+    task.archive = task.archive;
     this.saveGroup();
   }
 }
