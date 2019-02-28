@@ -15,9 +15,11 @@
         <!-- Group name @todo Add delete button at the right side of head -->
         <div class="card-header d-flex">{{ group.name }}
           <!-- Archive -->
-          <button class="btn btn-sm btn-light ml-auto py-0" (click)="group.showArchived = !group.showArchived">
+          <button class="btn btn-sm btn-light ml-auto py-0 mr-1 btn-outline-dark" (click)="group.showArchived = !group.showArchived">
             {{ group.showArchived ? 'Hide' : 'Show' }} Archived
           </button>
+          <!-- Delete -->
+          <button class="btn btn-sm btn-light float-right py-0 btn-outline-dark" (click)="deleteGroup(group)">X</button>
         </div>
         <!-- Group body -->
         <div class="card-body">

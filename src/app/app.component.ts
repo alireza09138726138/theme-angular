@@ -165,6 +165,20 @@ export class AppComponent {
     this.saveNotes();
   }
 
+
+  /**
+   * Delete a group and save to localStorage
+   *
+   */
+  deleteGroup(group: Group): void {
+    if (!confirm('Are you sure you want to delete?')) {
+      return;
+    }
+    const index: number = this.groups.indexOf(group);
+    this.groups.splice(index, 1);
+    this.saveGroup();
+  }
+
   pinTask(task: Task): void {
     task.pin = !task.pin;
     this.saveGroup();
@@ -186,14 +200,7 @@ export class AppComponent {
     this.saveGroup();
   }
 
-  /**
-   * showArchived
-   *
-   */
-  showArchived(task: Task): void {
-    task.archive = task.archive;
-    this.saveGroup();
-  }
+
 
   /**
    * Change color of note and save to localStorage
