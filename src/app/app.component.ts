@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Task } from './models/task/task';
 import { Group } from './models/group/group';
 import { Note } from './models/note/note';
-import { el } from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-root',
@@ -84,11 +83,10 @@ export class AppComponent {
     // Check localStorage for notes
     if (localStorage.getItem('notes')) {
       for (const item of JSON.parse(localStorage.getItem('notes'))) {
-        const note: Note = new Note(item.content);
+        const note: Note = new Note(item.content, item.color);
         this.notes.push(note);
       }
     }
-
   }
 
   /**
@@ -174,7 +172,6 @@ export class AppComponent {
 
   /**
    * archive
-   *
    */
   archive(group: Group, task: Task, index: number): void {
     task.archive = !task.archive;
@@ -196,6 +193,14 @@ export class AppComponent {
   showArchived(task: Task): void {
     task.archive = task.archive;
     this.saveGroup();
+  }
+
+  /**
+   * Change color of note and save to localStorage
+   */
+  setNoteColor(note: Note, color: string): void {
+    note.color = color;
+    this.saveNotes();
   }
 }
 

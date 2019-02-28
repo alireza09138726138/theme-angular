@@ -12,8 +12,4 @@ export class Group {
     this.tasks = tasks;
     this.archivedTasks = archivedTasks;
   }
-
-  public toggleArchived(): void {
-    this.showArchived = !this.showArchived;
-  }
 }
