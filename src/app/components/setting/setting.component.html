@@ -1,0 +1,31 @@
+<div class="container py-5">
+
+  <a class="btn btn-info" uiSref="main">home</a>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+
+
+      <button class="btn btn-warning" (click)="setting.save()">save</button>
+      <!-- form.setting -->
+      <div class="card my-3 ">
+        <form>
+
+          <!-- change groups (hide or show) -->
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]="setting.enableTask"
+              name="enableTask">
+            <label class="custom-control-label" for="customSwitch2">
+              {{ setting.enableTask ? 'Enaabled' : 'Disabled' }} groups</label>
+          </div>
+          <!-- change note (hide or show) -->
+          <div class="custom-control custom-switch my-2">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" [(ngModel)]="setting.enableNote"
+              name="enableNote">
+            <label class="custom-control-label" for="customSwitch1">
+              {{ setting.enableNote ? 'show' : 'Hide' }} Note</label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
