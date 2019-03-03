@@ -1,8 +1,15 @@
 <div class="container py-5">
-  <div class="row">
+
+  <h2>welcome</h2>
+  <a class="btn btn-info" uiSref="setting">Setting</a>
+
+
+  <div class="row my-2">
+
 
     <!-- Tasks -->
-    <div class="col-lg-6">
+    <!-- if setting change save dont show tasks -->
+    <div class="col-lg-6" *ngIf="!setting.enableTask">
 
       <!-- Add group -->
       <form (ngSubmit)="addGroup()">
@@ -18,7 +25,8 @@
           <button class="btn btn-sm btn-light mr-auto"
             (click)="deleteSelected(group.showArchived ? group.archivedTasks : group.tasks)">Done selected</button>
           <!-- Archive   -->
-          <button class="btn btn-sm btn-light py-0 mr-1 btn-outline-dark" (click)="group.showArchived = !group.showArchived">
+          <button class="btn btn-sm btn-light py-0 mr-1 btn-outline-dark"
+            (click)="group.showArchived = !group.showArchived">
             {{ group.showArchived ? 'Hide' : 'Show' }} Archived
           </button>
           <!-- Delete -->
@@ -51,8 +59,8 @@
             <!-- Pin -->
             <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">P</button>
             <!-- Delete -->
-            <button class="btn btn-sm btn-light float-right py-0" 
-            (click)="deleteTask(group.showArchived ? group.archivedTasks : group.tasks, index)">X</button>
+            <button class="btn btn-sm btn-light float-right py-0"
+              (click)="deleteTask(group.showArchived ? group.archivedTasks : group.tasks, index)">X</button>
             <!-- Archive -->
             <button class="btn btn-sm btn-light float-right py-0" (click)="archive(group, task, index)">A</button>
           </div>
@@ -68,8 +76,9 @@
       </div>
     </div>
 
+
     <!-- Notes -->
-    <div class="col-lg-6">
+    <div class="col-lg-6" *ngIf="!setting.enableNote">
 
       <!-- Add note -->
       <form (ngSubmit)="addNote()">

@@ -6,12 +6,10 @@ export class Group {
   tasks: Array<Task> = [];
   archivedTasks: Array<Task> = [];
 
-
   constructor(name: string, tasks: Array<Task> = [], archivedTasks: Array<Task> = []) {
     this.name = name;
     this.showArchived = false;
     this.tasks = tasks;
     this.archivedTasks = archivedTasks;
-
   }
 }
