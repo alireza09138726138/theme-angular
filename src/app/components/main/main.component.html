@@ -1,37 +1,36 @@
 <div class="container py-5">
 
-  <h2>welcome</h2>
-  <a class="btn btn-info" uiSref="setting">Setting</a>
-
+  <!-- Welcome text @todo Say welcome with username and username can be set in settings page -->
+  <div class="text-center mb-5">
+    <h2>Welcome</h2>
+  </div>
 
   <div class="row my-2">
 
-
-    <!-- Tasks -->
-    <!-- if setting change save dont show tasks -->
-    <div class="col-lg-6" *ngIf="!setting.enableTask">
+    <!-- Tasks (don't show task if not enabled in settings) -->
+    <div class="col-lg-6" *ngIf="setting.enableTask">
 
       <!-- Add group -->
       <form (ngSubmit)="addGroup()">
         <input type="text" class="form-control" placeholder="Add a group" [(ngModel)]="groupToAdd" name="groupToAdd"
-          autocomplete="off">
+               autocomplete="off">
       </form>
 
       <!-- Groups -->
       <div class="card my-3 " *ngFor="let group of groups">
-        <!-- Group name @todo Add delete button at the right side of head -->
-        <div class="card-header d-flex">{{ group.name }}
-          <!-- Mutlti select action -->
-          <button class="btn btn-sm btn-light mr-auto"
-            (click)="deleteSelected(group.showArchived ? group.archivedTasks : group.tasks)">Done selected</button>
-          <!-- Archive   -->
-          <button class="btn btn-sm btn-light py-0 mr-1 btn-outline-dark"
-            (click)="group.showArchived = !group.showArchived">
-            {{ group.showArchived ? 'Hide' : 'Show' }} Archived
-          </button>
-          <!-- Delete -->
-          <button class="btn btn-sm btn-light py-0 btn-outline-dark" (click)="deleteGroup(group)">X</button>
-          <button class="btn btn-sm btn-light py-0 btn-outline-dark" (click)="deleteAll(group)">X</button>
+        <!-- Group header -->
+        <div class="card-header">
+          <!-- Name -->
+          <span>{{ group.name }}</span>
+          <!-- Buttons -->
+          <div class="btn-group btn-group-sm float-right">
+            <!-- Delete -->
+            <button class="btn btn-light py-0" (click)="deleteGroup(group)">X</button>
+            <!-- Archive -->
+            <button class="btn btn-light py-0" (click)="group.showArchived = !group.showArchived">
+              {{ group.showArchived ? 'Hide' : 'Show' }} Archived
+            </button>
+          </div>
         </div>
         <!-- Group body -->
         <div class="card-body">
@@ -43,26 +42,27 @@
             </div>
           </form>
           <!-- Group task list -->
-          <div class="list-group-item task"
-            *ngFor="let task of ( group.showArchived ? group.archivedTasks : group.tasks); let index = index"
-            [ngClass]="{'done': task.done, 'bg-light': task.pin, 'bg-primary': task.selected }">
+          <div class="list-group-item task" [ngClass]="{done: task.done, 'bg-warning': task.pin}"
+               *ngFor="let task of ( group.showArchived ? group.archivedTasks : group.tasks); let index = index">
             <!-- Task done -->
             <div class="form-group form-check d-inline">
               <input type="checkbox" class="form-check-input" [(ngModel)]="task.done" (ngModelChange)="saveGroup()">
             </div>
-            <!-- Select  -->
-            <button class="btn btn-light btn-sm" (click)="task.selected = !task.selected">Select</button>
             <!-- Task name -->
             <span>{{ task.name }}</span>
+            <!-- Buttons -->
+            <div class="btn-group btn-group-sm float-right">
+              <!-- Pin -->
+              <button class="btn btn-light py-0" (click)="pinTask(task)">P</button>
+              <!-- Delete -->
+              <button class="btn btn-light py-0"
+                      (click)="deleteTask(group.showArchived ? group.archivedTasks : group.tasks, index)">X
+              </button>
+              <!-- Archive -->
+              <button class="btn btn-light py-0" (click)="archiveTask(group, task, index)">A</button>
+            </div>
             <!-- Task date -->
-            <small *ngIf="task.date"><br>{{ task.date | date:'MMM d, y' }}</small>
-            <!-- Pin -->
-            <button class="btn btn-sm btn-light float-right py-0" (click)="pinTask(task)">P</button>
-            <!-- Delete -->
-            <button class="btn btn-sm btn-light float-right py-0"
-              (click)="deleteTask(group.showArchived ? group.archivedTasks : group.tasks, index)">X</button>
-            <!-- Archive -->
-            <button class="btn btn-sm btn-light float-right py-0" (click)="archive(group, task, index)">A</button>
+            <div class="small" *ngIf="task.date">{{ task.date | date }}</div>
           </div>
           <!-- No tasks text -->
           <div *ngIf="!group.tasks.length && !group.showArchived" class="mt-3 text-secondary text-center">
@@ -76,25 +76,25 @@
       </div>
     </div>
 
-
-    <!-- Notes -->
-    <div class="col-lg-6" *ngIf="!setting.enableNote">
+    <!-- Notes (don't show notes if not enabled in settings) -->
+    <div class="col-lg-6" *ngIf="setting.enableNote">
 
       <!-- Add note -->
       <form (ngSubmit)="addNote()">
         <input type="text" placeholder="Add a note" class="form-control" [(ngModel)]="noteToAdd" name="noteToAdd"
-          autocomplete="off">
+               autocomplete="off">
       </form>
 
       <!-- List of notes -->
-      <div class="card my-3 bg-{{ note.color }} " *ngFor="let note of notes">
-        <div class="card-body" *ngIf="!note.length">
-          {{ note.content }}
+      <div class="card my-3 note bg-{{ note.color }}" *ngFor="let note of notes">
+        <div class="card-body">
+          <!-- Content -->
+          <span>{{ note.content }}</span>
           <!-- Buttons -->
-          <div class="float-right">
+          <div class="buttons float-right">
             <!-- Color dropdown -->
             <div class="dropdown d-inline">
-              <button class="btn btn-sm btn-outline-dark dropdown-toggle mr-1" data-toggle="dropdown"></button>
+              <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
                 <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'info')">Info</a>
@@ -106,7 +106,7 @@
               </div>
             </div>
             <!-- Delete button -->
-            <button class="btn btn-sm btn-outline-dark" (click)="deleteNote()">&times;</button>
+            <button class="btn btn-light btn-sm py-0" (click)="deleteNote(note)">X</button>
           </div>
         </div>
       </div>

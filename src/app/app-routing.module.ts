@@ -1,5 +1,6 @@
 import { UIRouter } from '@uirouter/angular';
 import { MainComponent } from './components/main/main.component';
+import { SettingComponent } from './components/setting/setting.component';
 
 export const Routes: object[] = [{
   name: 'main',

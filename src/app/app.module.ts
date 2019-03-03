@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { SettingComponent } from './components/setting/setting.component';
 import { MainComponent } from './components/main/main.component';
-import { uiRouterConfigFn, Routes } from './app-routing.module';
+import { Routes, uiRouterConfigFn } from './app-routing.module';
 import { UIRouterModule } from '@uirouter/angular';
 
 @NgModule({
@@ -20,9 +19,10 @@ import { UIRouterModule } from '@uirouter/angular';
     UIRouterModule.forRoot({
       states: Routes,
       config: uiRouterConfigFn
-}),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

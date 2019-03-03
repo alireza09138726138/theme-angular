@@ -1,0 +1,25 @@
+/* Task */
+
+.task .btn-group {
+  opacity: 0;
+}
+
+.task:hover .btn-group {
+  opacity: 1;
+}
+
+.task.done {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+
+/* Note */
+
+.note .buttons {
+  opacity: 0;
+}
+
+.note:hover .buttons {
+  opacity: 1;
+}

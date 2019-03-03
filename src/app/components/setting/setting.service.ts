@@ -5,25 +5,40 @@ import { Injectable } from '@angular/core';
 })
 export class SettingService {
 
+  /**
+   * Enable or disable notes
+   */
   enableNote: boolean = true;
+
+  /**
+   * Enable or disable tasks
+   */
   enableTask: boolean = true;
 
   constructor() {
+    /**
+     * Load settings if there are settingss
+     */
     if (localStorage.getItem('settings')) {
       this.load();
-    } 
-    else {
+    } else {
       this.save();
     }
   }
 
+  /**
+   * Save all settings in 'settings' in localStorage
+   */
   save() {
     localStorage.setItem('settings', JSON.stringify({
-      'enableNote': this.enableNote,
-      'enableTask': this.enableTask,
-    }))
+      enableNote: this.enableNote,
+      enableTask: this.enableTask,
+    }));
   }
 
+  /**
+   * Load all settings from 'settings' in localStorage
+   */
   load() {
     const settings: object = JSON.parse(localStorage.getItem('settings'));
 

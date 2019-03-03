@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/task/task';
 import { Group } from '../../models/group/group';
 import { Note } from '../../models/note/note';
+import { SettingService } from '../setting/setting.service';
 
 @Component({
-  selector: 'main-root',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
 
   /**
    * List of groups
@@ -40,8 +40,10 @@ export class MainComponent {
    */
   taskDateToAdd: Date;
 
-  constructor() {
+  constructor(private setting: SettingService) {
+  }
 
+  ngOnInit() {
     this.loadGroups();
     this.loadNotes();
   }
@@ -67,8 +69,6 @@ export class MainComponent {
         this.groups.push(group);
       }
     }
-
-    console.log(this.groups);
   }
 
   /**
@@ -102,9 +102,15 @@ export class MainComponent {
    * Add a task to task list and save to localStorage
    */
   addTask(group: Group) {
-    group.tasks.unshift(new Task(this.taskToAdd, false, new Date(this.taskDateToAdd), false, false, false));
+    // If date is set, create a Date class, if not set to null
+    const date: Date = this.taskDateToAdd ? new Date(this.taskDateToAdd) : null;
+    // Add a new task to tasks
+    group.tasks.unshift(new Task(this.taskToAdd, false, date, false, false, false));
+    // Save to localStorage
     this.saveGroup();
+    // Reset task and date input
     this.taskToAdd = '';
+    this.taskDateToAdd = null;
   }
 
   /**
@@ -135,7 +141,7 @@ export class MainComponent {
       return;
     }
     // Delete task at index
-    tasks.splice(index, 1)
+    tasks.splice(index, 1);
     // Save to localStorage
     this.saveGroup();
   }
@@ -143,7 +149,6 @@ export class MainComponent {
 
   /**
    * Delete a note and save to localStorage
-   *
    */
   deleteNote(note: Note): void {
     // Show are-you-sure message
@@ -161,7 +166,6 @@ export class MainComponent {
 
   /**
    * Delete a group and save to localStorage
-   *
    */
   deleteGroup(group: Group): void {
     if (!confirm('Are you sure you want to delete?')) {
@@ -172,17 +176,21 @@ export class MainComponent {
     this.saveGroup();
   }
 
+  /**
+   * Set a task to pinned an save to localStorage
+   */
   pinTask(task: Task): void {
     task.pin = !task.pin;
     this.saveGroup();
   }
 
   /**
-   * archive
+   * Set a task to archived and save to localStorage
    */
-  archive(group: Group, task: Task, index: number): void {
+  archiveTask(group: Group, task: Task, index: number): void {
+    // Change archive status
     task.archive = !task.archive;
-
+    // Move it to a different list (tasks or archivedTasks)
     if (task.archive === true) {
       group.archivedTasks.push(task);
       group.tasks.splice(index, 1);
@@ -190,25 +198,15 @@ export class MainComponent {
       group.tasks.push(task);
       group.archivedTasks.splice(index, 1);
     }
+    // Save to localStorage
     this.saveGroup();
   }
 
   /**
-     * Change color of note and save to localStorage
-     */
+   * Change color of note and save to localStorage
+   */
   setNoteColor(note: Note, color: string): void {
     note.color = color;
     this.saveNotes();
-  }
-
-
-  deleteSelected(tasks: Array<Task>){
-    for (const task of tasks){
-      if(task.selected === true){
-        task.done = true;
-        this.saveGroup();
-      }
-      
-    }
   }
 }
