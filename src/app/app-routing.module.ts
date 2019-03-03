@@ -5,6 +5,10 @@ export const Routes: object[] = [{
   name: 'main',
   url: '/',
   component: MainComponent
+}, {
+  name: 'setting',
+  url: '/setting',
+  component: SettingComponent
 }];
 
 /** UIRouter Config  */
