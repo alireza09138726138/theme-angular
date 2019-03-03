@@ -1,14 +1,14 @@
-<div class="container py-5">
-
-  <!-- Welcome text @todo Say welcome with username and username can be set in settings page -->
+<!-- Welcome text @todo Say welcome with username and username can be set in settings page -->
   <div class="text-center mb-5">
-    <h2>Welcome</h2>
+    <h2>Welcome mmm</h2>
+    <a class="btn btn-info" uiSref="setting">Setting</a>
+    
   </div>
 
   <div class="row my-2">
 
     <!-- Tasks (don't show task if not enabled in settings) -->
-    <div class="col-lg-6" *ngIf="setting.enableTask">
+    <div class="col-lg-6" *ngIf="!setting.enableTask">
 
       <!-- Add group -->
       <form (ngSubmit)="addGroup()">
@@ -62,7 +62,7 @@
               <button class="btn btn-light py-0" (click)="archiveTask(group, task, index)">A</button>
             </div>
             <!-- Task date -->
-            <div class="small" *ngIf="task.date">{{ task.date | date }}</div>
+            <div class="small" *ngIf="!task.date">{{ task.date | date }}</div>
           </div>
           <!-- No tasks text -->
           <div *ngIf="!group.tasks.length && !group.showArchived" class="mt-3 text-secondary text-center">
@@ -77,7 +77,7 @@
     </div>
 
     <!-- Notes (don't show notes if not enabled in settings) -->
-    <div class="col-lg-6" *ngIf="setting.enableNote">
+    <div class="col-lg-6" *ngIf="!setting.enableNote">
 
       <!-- Add note -->
       <form (ngSubmit)="addNote()">
