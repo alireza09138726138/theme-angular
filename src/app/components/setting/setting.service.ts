@@ -3,10 +3,15 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class SettingService {
+export class SettingService {  
+
+/**
+   * Enable or disable color of notes  
+   */
+  enablecolorNote: boolean = true;
 
   /**
-   * Enable or disable notes
+   * Enable or disable notes  
    */
   enableNote: boolean = true;
 
@@ -27,12 +32,13 @@ export class SettingService {
   }
 
   /**
-   * Save all settings in 'settings' in localStorage
+   * Save all settings in 'settings' in localStorage   
    */
   save() {
     localStorage.setItem('settings', JSON.stringify({
       enableNote: this.enableNote,
       enableTask: this.enableTask,
+      enablecolorNote: this.enablecolorNote,
     }));
   }
 
@@ -44,5 +50,6 @@ export class SettingService {
 
     this.enableNote = settings['enableNote'];
     this.enableTask = settings['enableTask'];
+    this.enablecolorNote = settings['enablecolorNote'];
   }
 }
