@@ -2,7 +2,7 @@
   <div class="row my-2 justify-content-center">
 
     <!-- Tasks (don't show task if not enabled in settings) -->
-    <div class="col-lg-6" *ngIf="setting.enableTask">
+    <div class="col-lg-6" *ngIf="!setting.enableTask">
 
       <!-- Add group -->
       <form (ngSubmit)="addGroup()">
@@ -74,7 +74,7 @@
     </div>
 
     <!-- Notes (don't show notes if not enabled in settings) -->
-    <div class="col-lg-6" *ngIf="setting.enableNote">
+    <div class="col-lg-6" *ngIf="!setting.enableNote" >
 
       <!-- Add note -->
       <form (ngSubmit)="addNote()">
@@ -83,14 +83,14 @@
       </form>
 
       <!-- List of notes -->
-      <div class="card my-3 note bg-{{ note.color }}" *ngFor="let note of notes">
-        <div class="card-body">
+      <div class="card my-3 note bg-{{ note.color }}" *ngFor="let note of notes" [ngClass]="{'bg-white': setting.enablecolorNote}">
+        <div class="card-body" >
           <!-- Content -->
           <span>{{ note.content }}</span>
           <!-- Buttons -->
           <div class="buttons float-right">
             <!-- Color dropdown -->
-            <div class="dropdown d-inline">
+            <div class="dropdown d-inline" *ngIf="!setting.enablecolorNote">
               <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
