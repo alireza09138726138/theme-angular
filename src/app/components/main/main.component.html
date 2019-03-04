@@ -1,11 +1,5 @@
 <div class="container py-5">
-
-  <!-- Welcome text @todo Say welcome with username and username can be set in settings page -->
-  <div class="text-center mb-5">
-    <h2>Welcome</h2>
-  </div>
-
-  <div class="row my-2">
+  <div class="row my-2 justify-content-center">
 
     <!-- Tasks (don't show task if not enabled in settings) -->
     <div class="col-lg-6" *ngIf="setting.enableTask">
@@ -17,7 +11,7 @@
       </form>
 
       <!-- Groups -->
-      <div class="card my-3 " *ngFor="let group of groups">
+      <div class="card my-3" *ngFor="let group of groups">
         <!-- Group header -->
         <div class="card-header">
           <!-- Name -->
@@ -74,6 +68,9 @@
           </div>
         </div>
       </div>
+
+      <!-- No group text -->
+      <p class="text-secondary mt-3 text-center" *ngIf="!groups.length">You don't have any groups and tasks.</p>
     </div>
 
     <!-- Notes (don't show notes if not enabled in settings) -->
@@ -110,6 +107,9 @@
           </div>
         </div>
       </div>
+
+      <!-- No note text -->
+      <p class="text-secondary mt-3 text-center" *ngIf="!notes.length">You don't have any notes.</p>
     </div>
   </div>
 </div>

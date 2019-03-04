@@ -1,30 +1,25 @@
 <div class="container py-5">
-
-  <a class="btn btn-info" uiSref="main">home</a>
   <div class="row justify-content-center">
-    <div class="col-lg-6">
-
-
-      <button class="btn btn-warning" (click)="setting.save()">save</button>
-      <!-- form.setting -->
-      <div class="card my-3 ">
-        <form>
-
-          <!-- change groups (hide or show) -->
+    <div class="col-lg-3">
+      <div class="card my-3">
+        <div class="card-header">Settings</div>
+        <div class="card-body">
           <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]="setting.enableTask"
-              name="enableTask">
-            <label class="custom-control-label" for="customSwitch2">
-              {{ setting.enableTask ? 'Enaabled' : 'Disabled' }} groups</label>
+            <input type="checkbox" class="custom-control-input" id="enableTask"
+                   [(ngModel)]="setting.enableTask" name="enableTask">
+            <label class="custom-control-label" for="enableTask">Enable tasks</label>
           </div>
-          <!-- change note (hide or show) -->
-          <div class="custom-control custom-switch my-2">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1" [(ngModel)]="setting.enableNote"
-              name="enableNote">
-            <label class="custom-control-label" for="customSwitch1">
-              {{ setting.enableNote ? 'show' : 'Hide' }} Note</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="enableNote"
+                   [(ngModel)]="setting.enableNote" name="enableNote">
+            <label class="custom-control-label" for="enableNote">Enable notes</label>
           </div>
-        </form>
+          <hr>
+          <a class="text-danger" (click)="deleteEverything()">Delete everything</a>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-info btn-sm" (click)="setting.save()">Save Changes</button>
+        </div>
       </div>
     </div>
   </div>

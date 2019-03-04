@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
    */
   taskDateToAdd: Date;
 
-  constructor(private setting: SettingService) {
+  constructor(public setting: SettingService) {
   }
 
   ngOnInit() {

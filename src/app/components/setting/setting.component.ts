@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingComponent implements OnInit {
 
-  constructor(private setting: SettingService) { }
+  constructor(public setting: SettingService) {
+  }
 
   ngOnInit() {
+  }
+
+  /**
+   * Delete all groups, tasks, notes and settings.
+   */
+  deleteEverything(): void {
+    if (!confirm('Are you sure you want to delete everything?')) {
+      return;
+    }
+    localStorage.clear();
+    location.reload();
   }
 }
 
