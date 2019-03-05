@@ -90,7 +90,7 @@
           <!-- Buttons -->
           <div class="buttons float-right">
             <!-- Color dropdown -->
-            <div class="dropdown d-inline">
+            <div class="dropdown d-inline" *ngIf="setting.enableNoteColor">
               <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>

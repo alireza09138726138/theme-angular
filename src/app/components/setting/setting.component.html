@@ -14,6 +14,11 @@
                    [(ngModel)]="setting.enableNote" name="enableNote">
             <label class="custom-control-label" for="enableNote">Enable notes</label>
           </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="enableNoteColor"
+                   [(ngModel)]="setting.enableNoteColor" name="enableNoteColor">
+            <label class="custom-control-label" for="enableNoteColor">Enable note color</label>
+          </div>
           <hr>
           <a class="text-danger" (click)="deleteEverything()">Delete everything</a>
         </div>

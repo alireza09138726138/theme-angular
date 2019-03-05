@@ -15,6 +15,11 @@ export class SettingService {
    */
   enableTask: boolean = true;
 
+  /**
+   * Enable or disable color of note
+   */
+  enableNoteColor: boolean = true;
+
   constructor() {
     /**
      * Load settings if there are settingss
@@ -42,7 +47,8 @@ export class SettingService {
   load() {
     const settings: object = JSON.parse(localStorage.getItem('settings'));
 
-    this.enableNote = settings['enableNote'];
     this.enableTask = settings['enableTask'];
+    this.enableNote = settings['enableNote'];
+    this.enableNoteColor = settings['enableNoteColor'];
   }
 }
