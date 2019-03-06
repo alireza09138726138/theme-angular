@@ -1,56 +1,42 @@
 <div class="container py-5">
   <div class="row justify-content-center">
+
     <div class="col-lg-3">
       <div class="card my-3">
         <div class="card-header">Settings</div>
         <div class="card-body">
           <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="enableTask"
-                   [(ngModel)]="setting.enableTask" name="enableTask">
+            <input type="checkbox" class="custom-control-input" id="enableTask" [(ngModel)]="setting.enableTask"
+              name="enableTask">
             <label class="custom-control-label" for="enableTask">Enable tasks</label>
           </div>
           <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="enableNote"
-                   [(ngModel)]="setting.enableNote" name="enableNote">
+            <input type="checkbox" class="custom-control-input" id="enableNote" [(ngModel)]="setting.enableNote"
+              name="enableNote">
             <label class="custom-control-label" for="enableNote">Enable notes</label>
           </div>
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="enableNoteColor"
-                   [(ngModel)]="setting.enableNoteColor" name="enableNoteColor">
+              [(ngModel)]="setting.enableNoteColor" name="enableNoteColo">
             <label class="custom-control-label" for="enableNoteColor">Enable note color</label>
           </div>
 
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="enableNoteColo"
-                   [(ngModel)]="setting.enableNoteColo" name="enableNoteColo">
-            <label class="custom-control-label" for="enableNoteColo">Enable note</label>
+          <div class="custom-control custom-switch bg-{{ setting.noteColor }}">
+
+            <div class="dropdown d-inline" *ngIf="!setting.enableNoteColor">
+              <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="setting.noteColor = 'danger'">danger</a>
+                <a class="dropdown-item" (click)="setting.noteColor = 'primary'">Primary</a>
+                <a class="dropdown-item" (click)="setting.noteColor = 'warning'">Warning</a>
+                <a class="dropdown-item" (click)="setting.noteColor = 'success'">Success</a>
+                <a class="dropdown-item" (click)="setting.noteColor = 'secondary'">Secondary</a>
+              </div>
+            </div>
           </div>
-
-<!-- Color dropdown -->
-<div class="dropdown d-inline" *ngIf="setting.enableNoteColo">
-  <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'info')">Info</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'danger')">Danger</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'primary')">Primary</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'warning')">Warning</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'success')">Success</a>
-    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'secondary')">Secondary</a>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
           <hr>
           <a class="text-danger" (click)="deleteEverything()">Delete everything</a>
+
         </div>
         <div class="card-footer text-center">
           <button class="btn btn-info btn-sm" (click)="setting.save()">Save Changes</button>
