@@ -19,6 +19,36 @@
                    [(ngModel)]="setting.enableNoteColor" name="enableNoteColor">
             <label class="custom-control-label" for="enableNoteColor">Enable note color</label>
           </div>
+
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="enableNoteColo"
+                   [(ngModel)]="setting.enableNoteColo" name="enableNoteColo">
+            <label class="custom-control-label" for="enableNoteColo">Enable note</label>
+          </div>
+
+<!-- Color dropdown -->
+<div class="dropdown d-inline" *ngIf="setting.enableNoteColo">
+  <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'info')">Info</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'danger')">Danger</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'primary')">Primary</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'warning')">Warning</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'success')">Success</a>
+    <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'secondary')">Secondary</a>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
           <hr>
           <a class="text-danger" (click)="deleteEverything()">Delete everything</a>
         </div>
@@ -29,3 +59,4 @@
     </div>
   </div>
 </div>
+
