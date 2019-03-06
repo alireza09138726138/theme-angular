@@ -83,25 +83,11 @@
       </form>
 
       <!-- List of notes -->
-      <div class="card my-3 note bg-{{ note.color }}" *ngFor="let note of notes">
+      <div class="card my-3 note bg-{{ setting.noteColor }}" *ngFor="let note of notes">
         <div class="card-body">
           <!-- Content -->
           <span>{{ note.content }}</span>
-          <!-- Buttons -->
-          <div class="buttons float-right">
-            <!-- Color dropdown -->
-            <div class="dropdown d-inline" *ngIf="setting.enableNoteColor">
-              <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'info')">Info</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'danger')">Danger</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'primary')">Primary</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'warning')">Warning</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'success')">Success</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'secondary')">Secondary</a>
-              </div>
-            </div>
+          
             <!-- Delete button -->
             <button class="btn btn-light btn-sm py-0" (click)="deleteNote(note)">X</button>
           </div>
