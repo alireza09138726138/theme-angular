@@ -5,8 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class SettingService {
 
+ /**
+   * Enable or disable notes    
+   */
+  enableNoteColo: boolean = true;
+
   /**
-   * Enable or disable notes
+   * Enable or disable notes  
    */
   enableNote: boolean = true;
 
@@ -38,11 +43,12 @@ export class SettingService {
     localStorage.setItem('settings', JSON.stringify({
       enableNote: this.enableNote,
       enableTask: this.enableTask,
+      enableNoteColo: this.enableNoteColo,
     }));
   }
 
   /**
-   * Load all settings from 'settings' in localStorage
+   * Load all settings from 'settings' in localStorage  
    */
   load() {
     const settings: object = JSON.parse(localStorage.getItem('settings'));
@@ -50,5 +56,6 @@ export class SettingService {
     this.enableTask = settings['enableTask'];
     this.enableNote = settings['enableNote'];
     this.enableNoteColor = settings['enableNoteColor'];
+    
   }
 }
