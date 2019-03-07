@@ -87,9 +87,11 @@
         <div class="card-body">
           <!-- Content -->
           <span>{{ note.content }}</span>
-          
+          <!-- Buttons -->
+          <div class="buttons float-right">
             <!-- Delete button -->
             <button class="btn btn-light btn-sm py-0" (click)="deleteNote(note)">X</button>
+          </div>
           </div>
         </div>
       </div>
@@ -98,4 +100,5 @@
       <p class="text-secondary mt-3 text-center" *ngIf="!notes.length">You don't have any notes.</p>
     </div>
   </div>
-</div>
+
+
