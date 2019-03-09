@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Note } from '../../models/note/note';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class SettingService {
    */
   enableNoteColor: boolean = true;
 
+  /**
+   * Default color for new notes
+   * Default value for this setting is the first note color (white)
+   */
+  defaultNoteColor: string = Note.colors[0];
+
   constructor() {
     /**
      * Load settings if there are settings
@@ -39,6 +46,7 @@ export class SettingService {
       enableNote: this.enableNote,
       enableTask: this.enableTask,
       enableNoteColor: this.enableNoteColor,
+      defaultNoteColor: this.defaultNoteColor,
     }));
   }
 
@@ -51,5 +59,6 @@ export class SettingService {
     this.enableTask = settings['enableTask'];
     this.enableNote = settings['enableNote'];
     this.enableNoteColor = settings['enableNoteColor'];
+    this.defaultNoteColor = settings['defaultNoteColor'];
   }
 }
