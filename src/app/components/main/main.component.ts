@@ -20,6 +20,10 @@ export class MainComponent implements OnInit {
    */
   notes: Note[] = [];
 
+  /**
+   * List of colors of note
+   */
+  noteColors: string[];
 
   /**
    * Task to add from input
@@ -42,6 +46,7 @@ export class MainComponent implements OnInit {
   taskDateToAdd: Date;
 
   constructor(public setting: SettingService) {
+    this.noteColors = Note.colors;
   }
 
   ngOnInit() {
