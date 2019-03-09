@@ -27,7 +27,7 @@ export class Note {
    */
   color: string;
 
-  constructor(content: string, color: string = 'white') {
+  constructor(content: string, color: string = Note.colors[0]) {
     this.content = content;
     this.color = color;
   }
