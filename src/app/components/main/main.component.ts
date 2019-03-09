@@ -13,12 +13,13 @@ export class MainComponent implements OnInit {
   /**
    * List of groups
    */
-  groups: Array<Group> = [];
+  groups: Group[] = [];
 
   /**
    * List of notes
    */
-  notes: Array<Note> = [];
+  notes: Note[] = [];
+
 
   /**
    * Task to add from input
