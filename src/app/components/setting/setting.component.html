@@ -2,24 +2,38 @@
   <div class="row justify-content-center">
     <div class="col-lg-3">
       <div class="card my-3">
+        <!-- Header -->
         <div class="card-header">Settings</div>
         <div class="card-body">
+          <!-- Enable task -->
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="enableTask"
                    [(ngModel)]="setting.enableTask" name="enableTask">
             <label class="custom-control-label" for="enableTask">Enable tasks</label>
           </div>
+          <!-- Enable note -->
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="enableNote"
                    [(ngModel)]="setting.enableNote" name="enableNote">
             <label class="custom-control-label" for="enableNote">Enable notes</label>
           </div>
+          <!-- Enable note color -->
           <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" id="enableNoteColor"
                    [(ngModel)]="setting.enableNoteColor" name="enableNoteColor">
             <label class="custom-control-label" for="enableNoteColor">Enable note color</label>
           </div>
+          <!-- Default note color -->
+          <div class="form-group mt-3">
+            <label for="defaultNoteColor">Default note color</label>
+            <select name="defaultNoteColor" id="defaultNoteColor" class="form-control form-control-sm"
+                    [(ngModel)]="setting.defaultNoteColor">
+              <option *ngFor="let color of noteColors" [ngValue]="color">{{ color | titlecase }}</option>
+            </select>
+          </div>
+          <!-- Separator -->
           <hr>
+          <!-- Delete everything -->
           <a class="text-danger" (click)="deleteEverything()">Delete everything</a>
         </div>
         <div class="card-footer text-center">

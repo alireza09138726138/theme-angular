@@ -13,12 +13,17 @@ export class MainComponent implements OnInit {
   /**
    * List of groups
    */
-  groups: Array<Group> = [];
+  groups: Group[] = [];
 
   /**
    * List of notes
    */
-  notes: Array<Note> = [];
+  notes: Note[] = [];
+
+  /**
+   * List of colors of note
+   */
+  noteColors: string[];
 
   /**
    * Task to add from input
@@ -41,6 +46,7 @@ export class MainComponent implements OnInit {
   taskDateToAdd: Date;
 
   constructor(public setting: SettingService) {
+    this.noteColors = Note.colors;
   }
 
   ngOnInit() {
@@ -126,7 +132,8 @@ export class MainComponent implements OnInit {
    * Add a note to note list and save to localStorage
    */
   addNote() {
-    this.notes.unshift(new Note(this.noteToAdd));
+    // Add a new note and set the color to the default color from settings
+    this.notes.unshift(new Note(this.noteToAdd, this.setting.defaultNoteColor));
     this.saveNotes();
     this.noteToAdd = '';
   }
