@@ -132,7 +132,8 @@ export class MainComponent implements OnInit {
    * Add a note to note list and save to localStorage
    */
   addNote() {
-    this.notes.unshift(new Note(this.noteToAdd));
+    // Add a new note and set the color to the default color from settings
+    this.notes.unshift(new Note(this.noteToAdd, this.setting.defaultNoteColor));
     this.saveNotes();
     this.noteToAdd = '';
   }
