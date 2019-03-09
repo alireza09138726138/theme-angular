@@ -22,7 +22,7 @@ export class SettingService {
 
   constructor() {
     /**
-     * Load settings if there are settingss
+     * Load settings if there are settings
      */
     if (localStorage.getItem('settings')) {
       this.load();
@@ -38,6 +38,7 @@ export class SettingService {
     localStorage.setItem('settings', JSON.stringify({
       enableNote: this.enableNote,
       enableTask: this.enableTask,
+      enableNoteColor: this.enableNoteColor,
     }));
   }
 
