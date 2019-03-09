@@ -1,5 +1,6 @@
 import { SettingService } from './setting.service';
 import { Component, OnInit } from '@angular/core';
+import { Note } from '../../models/note/note';
 
 @Component({
   templateUrl: './setting.component.html',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingComponent implements OnInit {
 
+  /**
+   * List of color of note used for default note color.
+   * @see Note.colors
+   * @see SettingService.defaultNoteColor
+   */
+  noteColors: string[];
+
   constructor(public setting: SettingService) {
+    this.noteColors = Note.colors;
   }
 
   ngOnInit() {

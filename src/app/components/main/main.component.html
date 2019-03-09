@@ -93,13 +93,10 @@
             <div class="dropdown d-inline" *ngIf="setting.enableNoteColor">
               <button class="btn btn-light btn-sm py-0 dropdown-toggle mr-1" data-toggle="dropdown"></button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'white')">White</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'info')">Info</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'danger')">Danger</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'primary')">Primary</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'warning')">Warning</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'success')">Success</a>
-                <a class="dropdown-item" href="#" (click)="setNoteColor(note, 'secondary')">Secondary</a>
+                <a class="dropdown-item" (click)="setNoteColor(note, color)" *ngFor="let color of noteColors"
+                   [ngClass]="{active:note.color === color}">
+                  <span class="text-capitalize">{{ color }}</span>
+                </a>
               </div>
             </div>
             <!-- Delete button -->
